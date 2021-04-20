@@ -11,6 +11,12 @@ mydb = mysql.connector.connect(host='localhost',
                                )
 cursor = mydb.cursor()
 
+# 測試看看每個網址
+# photo_http = 'http://www.travel.taipei/d_upload_ttn'
+# photo = taipei_fun[1]['file'].split(photo_http)
+# for i in range(1, len(photo)):
+#     print(f'{photo_http+photo[i]}')
+
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 json_url = os.path.join(SITE_ROOT,
                         "taipei-attractions.json")
@@ -25,9 +31,11 @@ def info():
         first_photo = fun['file'].split(photo_http)[1]
         address = fun['address'].replace(' ', '')
 
+        # """
         photo_http = 'http://www.travel.taipei/'
         all_photo_len = len(fun['file'].split(photo_http))
         all_photo = fun['file'].split(photo_http)
+        # print(all_photo_len)
         photo_links = []
 
         for i in range(1, all_photo_len):
@@ -43,7 +51,7 @@ def info():
                 '[', '').replace(']', '').replace("'", "").replace("'", "").replace(",", "、")
 
             if bus_info:
-                # """
+                """
                 print(  # {"data": {
                     f' "id": {fun["RowNumber"]},\n',
                     f'"name": "{fun["stitle"]}",\n',
@@ -62,9 +70,9 @@ def info():
                 # print(type(xbody))
 
                 def insert():
-                    sql = "INSERT into t3(id, name, category, description, address, transport, MRT, latitude, longitude, image) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                    sql = "INSERT into t4(id, name, category, description, address, transport, MRT, latitude, longitude, image) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
                     val = (int(fun['RowNumber']), fun['stitle'], fun['CAT2'], fun["xbody"],
-                           address, bus_info, mrt, fun["latitude"], fun["longitude"], str(photo_links))
+                           address, bus_info, mrt, fun["latitude"], fun["longitude"], str(photo_links))  # list
                     cursor.execute(sql, val)
                     mydb.commit()
                     print(cursor.rowcount, "record inserted.")
@@ -84,6 +92,20 @@ def photo():
             photo = fun['file'].split(photo_http)[i]
             if not photo.endswith('mp3'):
                 photo_links.append(f'{photo_http+photo}')
+                # print((str(photo_links)))
+                # print((str(photo_links)))
+                # for p in photo_links[2:5]:
+                #     print(p)
+        # val = (int(fun['RowNumber']), [(p,) for p in photo_links])
+        # print(val)
+
+        def insert():
+            sql = "INSERT into p4 (pid, image) VALUES (%s,%s)"
+            val = (int(fun['RowNumber']), (str(photo_links)))
+            cursor.execute(sql, val)
+            mydb.commit()
+            print(cursor.rowcount, "record inserted.")
+        # insert()
 
         save_photo = (f"{fun['stitle']} ,{photo_links}\n\n")
         # print(save_photo)
