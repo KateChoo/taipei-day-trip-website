@@ -1,6 +1,7 @@
 from flask import *
 import mysql.connector
 import requests
+import math
 import re
 
 mydb = mysql.connector.connect(host='localhost',
@@ -29,26 +30,20 @@ def attraction(id):
     return render_template("attraction.html")
 
 
-@app.route('/api/attraction/<attractionid>')
-def attractionid(attractionid):  # /api/attraction/attractionid
+@ app.route('/api/attraction/<attractionId>')
+def attractionid(attractionId):  # /api/attraction/attractionid
     try:
         cursor.execute(
-            'SELECT * FROM t4 where id = %s', (attractionid,))
+            'SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where pid = %s', (attractionId,))
         result = cursor.fetchone()
-
         des = result[3].split("，")[0].strip()
-
         imgs = result[9].split("',")[0]
         img = imgs.replace("['", '')
         pic = []
         pic.append(img)
         # print(pic)
         data = (
-            {"data": {"id": result[0], "name": result[1], "category": result[2], "description": des + "，", "address": result[4], "transport": "公車：" + result[5], "MRT": result[6], "latitude": result[7], "longitude": result[8], "image": pic}})
-        # """
-        # print(type(data))
-        # print(type((result)))
-        # render_template("attraction.html", attractionid=attractionid, data=data)
+            {"data": {"id": result[0], "name": result[1], "category": result[2], "description": des + "，", "address": result[4], "transport": "公車：" + result[5], "mrt": result[6], "latitude": result[7], "longitude": result[8], "image": pic}})
         return jsonify(data)
     except:
         return 'not yet'
