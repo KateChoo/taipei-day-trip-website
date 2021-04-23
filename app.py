@@ -7,7 +7,8 @@ import re
 mydb = mysql.connector.connect(host='localhost',
                                user='k',
                                password='kpython',
-                               database="test"
+                               database="test",
+                               auth_plugin='mysql_native_password'
                                )
 
 app = Flask(__name__)
