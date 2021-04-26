@@ -5,7 +5,7 @@ import re
 
 mydb = mysql.connector.connect(host='localhost',
                                user='root',
-                               password='2wsx3edc',
+                               password='kpython',
                                database="test"
                                #    auth_plugin='mysql_native_password'
                                )
@@ -42,21 +42,38 @@ def thankyou():
 
 @ app.route('/api/attraction/<attractionId>')
 def attractionid(attractionId):  # /api/attraction/attractionid
+    status_code = 0
     try:
         cursor.execute(
-            'SELECT pid, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where pid = %s', (attractionId,))
+            'SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where pid = %s', (attractionId,))
         result = cursor.fetchone()
-        des = result[3].split("，")[0].strip()
-        imgs = result[9].split("',")[0]
-        img = imgs.replace("['", '')
-        pic = []
-        pic.append(img)
-        # print(pic)
-        data = (
-            {"data": {"id": result[0], "name": result[1], "category": result[2], "description": des + "，", "address": result[4], "transport": "公車：" + result[5], "mrt": result[6], "latitude": result[7], "longitude": result[8], "image": pic}})
-        return jsonify(data)
+        # des = result[3].split("，")[0].strip()
+        if result:
+            imgs = result[9].split("',")[0]
+            img = imgs.replace("['", '')
+            pic = []
+            pic.append(img)
+            print(pic)
+            data = (
+                {"data": {"id": result[0], "name": result[1], "category": result[2], "description": result[3], "address": result[4], "transport": "公車：" + result[5], "mrt": result[6], "latitude": result[7], "longitude": result[8], "image": pic}})
+            # des + "，"
+            return jsonify(data)
+            status_code = 200
+        else:
+            err400 = {
+                "error": True,
+                "message": "Wrong ID"
+            }
+            status_code = 400
+            return jsonify(err400)
+
     except:
-        return 'not yet'
+        err500 = {
+            "error": True,
+            "message": "Server error"
+        }
+        status_code = 500
+        return jsonify(err500)
 
 
 @app.route('/api/attractions')  # /api/attractions?page=p
