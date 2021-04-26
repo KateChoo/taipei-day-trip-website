@@ -4,8 +4,8 @@ import requests
 import re
 
 mydb = mysql.connector.connect(host='localhost',
-                               user='k',
-                               password='kpython',
+                               user='root',
+                               password='2wsx3edc',
                                database="test"
                                #    auth_plugin='mysql_native_password'
                                )
