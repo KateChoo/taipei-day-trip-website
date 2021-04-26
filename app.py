@@ -61,44 +61,122 @@ def attractionid(attractionId):  # /api/attraction/attractionid
 
 @app.route('/api/attractions')  # /api/attractions?page=p
 def page():
+    status_code = 0
     try:
-        # page等號左邊 = page_num使用者輸入 #一定是字串
+        item_per_page = 12
         page_num = request.args.get("page", 0)
         page_num = int(page_num)
-        print(page_num)
-        print(type(page_num))
+        keyword = request.args.get("keyword", "")
 
-        #search = request.args.get("keyword")
+        # print(f'page_num: {page_num}')
+        # print(f'type: {type(page_num)}')
 
-        cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 LIMIT 12'
-                       )
-        results = cursor.fetchall()
-        result = []
-        for r in results:
-            data = {
-                "id": r[0],
-                "name": r[1],
-                "category": r[2],
-                "description": r[3],
-                "address": r[4],
-                "transport": '公車：' + r[5],
-                "mrt": r[6],
-                "latitude": r[7],
-                "longitude": r[8],
-                "image": r[9]
-            }
-            # print(data)
-            result.append(data)
-            p_data = (
-                {
-                    "nextPage": page_num,
-                    "data": result
+        if page_num == 0:
+            offset_num = 0
+            # print(offset_num)
+        if page_num >= 1:
+            offset_num = page_num*item_per_page
+            # print(offset_num)
+
+            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 LIMIT 12 OFFSET %s', (offset_num,)
+                           )
+            results = cursor.fetchall()
+            result = []
+
+            for r in results:
+                data = {
+                    "id": r[0],
+                    "name": r[1],
+                    "category": r[2],
+                    "description": r[3],
+                    "address": r[4],
+                    "transport": '公車：' + r[5],
+                    "mrt": r[6],
+                    "latitude": r[7],
+                    "longitude": r[8],
+                    "image": r[9]
                 }
-            )
-        return jsonify(p_data)
+                # print(data)
+                result.append(data)
+                if len(result) < item_per_page:
+                    p_data = (
+                        {
+                            "nextPage": None,
+                            "data": result
+                        }
+                    )
+                else:
+                    p_data = (
+                        {
+                            "nextPage": page_num + 1,
+                            "data": result
+                        }
+                    )
+            return jsonify(p_data)
+        elif keyword:
+            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where name LIKE %s', ("%"+keyword+"%",)
+                           )
+            results = cursor.fetchall()
+            result = []
+            for r in results:
+                data = {
+                    "id": r[0],
+                    "name": r[1],
+                    "category": r[2],
+                    "description": r[3],
+                    "address": r[4],
+                    "transport": '公車：' + r[5],
+                    "mrt": r[6],
+                    "latitude": r[7],
+                    "longitude": r[8],
+                    "image": r[9]
+                }
+                # print(data)
+                result.append(data)
+                # if page_num <= len(result):
+                p_data = (
+                    {
+                        "nextPage": None,
+                        "data": result
+                    }
+                )
+            return jsonify(p_data)
+        else:
+            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where name like %s LIMIT 12 OFFSET %s', ("%"+keyword+"%", offset_num,)  # "%"+keyword+"%"
+                           )
+            results = cursor.fetchall()
+            result = []
+            for r in results:
+                data = {
+                    "id": r[0],
+                    "name": r[1],
+                    "category": r[2],
+                    "description": r[3],
+                    "address": r[4],
+                    "transport": '公車：' + r[5],
+                    "mrt": r[6],
+                    "latitude": r[7],
+                    "longitude": r[8],
+                    "image": r[9]
+                }
+                # print(data)
+                result.append(data)
+                # if page_num <= len(result):
+                p_data = (
+                    {
+                        "nextPage": None,
+                        "data": result
+                    }
+                )
+            return jsonify(p_data)
 
     except:
-        return 'not yet'
+        err500 = {
+            "error": True,
+            "message": "error"
+        }
+        status_code = 500
+        return jsonify(err500)
 
 
 app.run(host="0.0.0.0", debug=True, port=3000)
