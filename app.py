@@ -4,8 +4,8 @@ import requests
 import re
 
 mydb = mysql.connector.connect(host='localhost',
-                               user='root',
-                               password='2wsx3edc',
+                               user='k',
+                               password='kpython',
                                database="test"
                                #    auth_plugin='mysql_native_password'
                                )
@@ -44,7 +44,7 @@ def thankyou():
 def attractionid(attractionId):  # /api/attraction/attractionid
     try:
         cursor.execute(
-            'SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where pid = %s', (attractionId,))
+            'SELECT pid, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where pid = %s', (attractionId,))
         result = cursor.fetchone()
         des = result[3].split("，")[0].strip()
         imgs = result[9].split("',")[0]
@@ -71,10 +71,39 @@ def page():
         # print(f'page_num: {page_num}')
         # print(f'type: {type(page_num)}')
 
-        if page_num == 0:
+        if page_num == 1:
             offset_num = 0
             # print(offset_num)
-        if page_num >= 1:
+            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 LIMIT 12 OFFSET %s', (offset_num,)
+                           )
+            results = cursor.fetchall()
+            result = []
+
+            for r in results:
+                data = {
+                    "id": r[0],
+                    "name": r[1],
+                    "category": r[2],
+                    "description": r[3],
+                    "address": r[4],
+                    "transport": '公車：' + r[5],
+                    "mrt": r[6],
+                    "latitude": r[7],
+                    "longitude": r[8],
+                    "image": r[9]
+                }
+                # print(data)
+                result.append(data)
+                print(len(result))
+
+                p_data = (
+                    {
+                        "nextPage": page_num + 1,
+                        "data": result
+                    }
+                )
+            return jsonify(p_data)
+        if page_num > 1:
             offset_num = page_num*item_per_page
             # print(offset_num)
 
@@ -98,6 +127,8 @@ def page():
                 }
                 # print(data)
                 result.append(data)
+                print(len(result))
+
                 if len(result) < item_per_page:
                     p_data = (
                         {
