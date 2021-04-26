@@ -5,7 +5,7 @@ import re
 
 mydb = mysql.connector.connect(host='localhost',
                                user='root',
-                               password='kpython',
+                               password='2wsx3edc',
                                database="test"
                                #    auth_plugin='mysql_native_password'
                                )
