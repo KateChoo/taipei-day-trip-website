@@ -1,5 +1,8 @@
 note.txt
 aws.txt
+static
+templates/member.html
+config.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

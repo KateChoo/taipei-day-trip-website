@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block taipei_css_link%}
+<link rel="stylesheet" href="static/stylesheets/taipei/taipei.css">
+{% endblock %}
+
+{% block k_links %}
+ 
+    {% if g.name == ' ' %}
+    {% block title_taipei %}
+        <h1>{{web_info.taipei_t}}</h1>
+    {% endblock %}
+    {% else %}
+        {% block taipei%}
+            <main id="taipei_fun"></main>
+        {% endblock %}
+        {% block taipei_api_ajax%}
+            <script src="static/js/taipei.js"> </script>
+        {% endblock %}
+    {% endif %}
+
+{% endblock %}

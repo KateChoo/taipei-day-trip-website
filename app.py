@@ -17,12 +17,16 @@ app.config['JSON_SORT_KEYS'] = False
 app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+
+web_info = {
+    'taipei_t': ''
+}
 # Pages
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", web_info=web_info)
 
 
 @app.route("/attraction/<id>")
@@ -83,14 +87,19 @@ def page():
         item_per_page = 12
         page_num = request.args.get("page", 0)
         page_num = int(page_num)
-        keyword = request.args.get("keyword", "")
+        keyword = request.args.get("keyword", None)
         offset_num = page_num*item_per_page
         # print(f'page_num: {page_num}')
         # print(f'type: {type(page_num)}')
+        if keyword:
+            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where name like %s LIMIT 12 OFFSET %s', ("%"+keyword+"%", offset_num,)  # "%"+keyword+"%"
+                           )
+            results = cursor.fetchall()
+        elif keyword == None:
+            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 LIMIT 12 OFFSET %s', (offset_num,)
+                           )
+            results = cursor.fetchall()
 
-        cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where name like %s LIMIT 12 OFFSET %s', ("%"+keyword+"%", offset_num,)  # "%"+keyword+"%"
-                       )
-        results = cursor.fetchall()
         result = []
         for r in results:
             data = {
@@ -108,7 +117,7 @@ def page():
             # print(data)
             result.append(data)
         print(f'一開始: {len(result)}')
-
+#================================================================#
         if page_num == 0:
             offset_num = 0
             print(f'page_num == 0: {len(result)}')
@@ -119,6 +128,7 @@ def page():
                 }
             )
             return jsonify(p_data)
+
         if page_num >= 1:
             p_data = (
                 {

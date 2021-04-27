@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-signin-client_id" content="signup-309512
+    .apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/stylesheets/header/header.css">
+    {% block home_css_link%}
+    {% endblock %}
+    {% block msg_css_link%}
+    {% endblock %}
+    {% block k_links_css_link%}
+    {% endblock %}
+    {% block axios_link%}
+    {% endblock %}
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <title>Taipei</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">台北一日遊</a> 
+            <ul id='nav'>
+                <span class="s1"></span>
+                <span class="s2"></span>
+                <span class="s3"></span>
+                {#}
+                {% for item in navigation %}
+                <!-- <li><a href="{{ item.href }}">{{ item.caption }}</a></li> -->
+                    <li><a>{{item}}</a></li>
+                {% endfor %}
+                #}
+                <li class='show'><a href = "/member">{{g.name}}</a></li>
+                <!-- <li class='show'><a href = "/k_links">連結</a></li> -->
+                <li class='show'><a href = "/tpe">預定行程</a></li>
+                {% if g.name == ' ' %}
+                    <li class='show'><a href = "/">登入/註冊(登出系統)</a></li>
+                {% else %}
+                    <li class='show'><a href = "/signout">登入/註冊</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div>
+            {% block title %}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                    <h3 style="color:rgb(218, 88, 13); 
+                    margin: 0 auto; 
+                    display:grid;
+                    justify-self: center;
+                    align-self: center;">{{msg}}</h3>
+                    {% endfor %}
+                {% elif g.name == ' ' %}
+                    <h1>{{web_info.signin_t}}</h1>
+                {% else %}
+                    {% block title_home %}
+                    {% endblock %}
+                    {% block title_k %}
+                    {% endblock %}
+                    {% block title_taipei %}
+                    {% endblock %}
+                {% endif %}
+            {% endwith %}
+        {% endblock %}
+        </div>
+        <!-- {% block header %}
+        {% endblock %} -->
+    </header>
+    <main>
+        {% block home %}
+        {% endblock %}
+        {% block member %}
+        {% endblock %}
+        {% block k_links %}
+        {% endblock %}
+    </main>
+    <footer>
+        <a href="mailto:twodoor1993@gmail.com?subject=feedback for you">2021 K</a>
+    </footer>
+<script src="static/js/header.js"> </script>  
+{% block k_links_js %}
+{% endblock %}
+{% block msg_js %}
+{% endblock %}
+</body>
+</html>
