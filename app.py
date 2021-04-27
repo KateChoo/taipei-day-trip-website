@@ -4,8 +4,8 @@ import requests
 import re
 
 mydb = mysql.connector.connect(host='localhost',
-                               user='root',
-                               password='2wsx3edc',
+                               user='k',
+                               password='kpython',
                                database="test"
                                #    auth_plugin='mysql_native_password'
                                )
@@ -49,13 +49,13 @@ def attractionid(attractionId):  # /api/attraction/attractionid
         result = cursor.fetchone()
         # des = result[3].split("，")[0].strip()
         if result:
-            imgs = result[9].split("',")[0]
-            img = imgs.replace("['", '')
-            pic = []
-            pic.append(img)
-            print(pic)
+            # imgs = result[9].split("',")[0]
+            # img = imgs.replace("['", '')
+            # pic = []
+            # pic.append(img)
+            # print(pic)
             data = (
-                {"data": {"id": result[0], "name": result[1], "category": result[2], "description": result[3], "address": result[4], "transport": "公車：" + result[5], "mrt": result[6], "latitude": result[7], "longitude": result[8], "image": pic}})
+                {"data": {"id": result[0], "name": result[1], "category": result[2], "description": result[3], "address": result[4], "transport": "公車：" + result[5], "mrt": result[6], "latitude": result[7], "longitude": result[8], "image": result[9]}})
             # des + "，"
             return jsonify(data)
             status_code = 200
@@ -84,139 +84,64 @@ def page():
         page_num = request.args.get("page", 0)
         page_num = int(page_num)
         keyword = request.args.get("keyword", "")
-
+        offset_num = page_num*item_per_page
         # print(f'page_num: {page_num}')
         # print(f'type: {type(page_num)}')
 
-        if page_num == 1:
+        cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where name like %s LIMIT 12 OFFSET %s', ("%"+keyword+"%", offset_num,)  # "%"+keyword+"%"
+                       )
+        results = cursor.fetchall()
+        result = []
+        for r in results:
+            data = {
+                "id": r[0],
+                "name": r[1],
+                "category": r[2],
+                "description": r[3],
+                "address": r[4],
+                "transport": '公車：' + r[5],
+                "mrt": r[6],
+                "latitude": r[7],
+                "longitude": r[8],
+                "image": r[9]
+            }
+            # print(data)
+            result.append(data)
+        print(f'一開始: {len(result)}')
+
+        if page_num == 0:
             offset_num = 0
-            # print(offset_num)
-            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 LIMIT 12 OFFSET %s', (offset_num,)
-                           )
-            results = cursor.fetchall()
-            result = []
-
-            for r in results:
-                data = {
-                    "id": r[0],
-                    "name": r[1],
-                    "category": r[2],
-                    "description": r[3],
-                    "address": r[4],
-                    "transport": '公車：' + r[5],
-                    "mrt": r[6],
-                    "latitude": r[7],
-                    "longitude": r[8],
-                    "image": r[9]
+            print(f'page_num == 0: {len(result)}')
+            p_data = (
+                {
+                    "nextPage": page_num + 1,
+                    "data": result
                 }
-                # print(data)
-                result.append(data)
-                print(len(result))
-
+            )
+            return jsonify(p_data)
+        if page_num >= 1:
+            p_data = (
+                {
+                    "nextPage": page_num + 1,
+                    "data": result
+                }
+            )
+            print(f'page_num >= 1: {len(result)}')
+            if len(result) < item_per_page:
+                p_data = (
+                    {
+                        "nextPage": None,
+                        "data": result
+                    }
+                )
+            else:
                 p_data = (
                     {
                         "nextPage": page_num + 1,
                         "data": result
                     }
                 )
-            return jsonify(p_data)
-        if page_num > 1:
-            offset_num = page_num*item_per_page
-            # print(offset_num)
-
-            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 LIMIT 12 OFFSET %s', (offset_num,)
-                           )
-            results = cursor.fetchall()
-            result = []
-
-            for r in results:
-                data = {
-                    "id": r[0],
-                    "name": r[1],
-                    "category": r[2],
-                    "description": r[3],
-                    "address": r[4],
-                    "transport": '公車：' + r[5],
-                    "mrt": r[6],
-                    "latitude": r[7],
-                    "longitude": r[8],
-                    "image": r[9]
-                }
-                # print(data)
-                result.append(data)
-                print(len(result))
-
-                if len(result) < item_per_page:
-                    p_data = (
-                        {
-                            "nextPage": None,
-                            "data": result
-                        }
-                    )
-                else:
-                    p_data = (
-                        {
-                            "nextPage": page_num + 1,
-                            "data": result
-                        }
-                    )
-            return jsonify(p_data)
-        elif keyword:
-            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where name LIKE %s', ("%"+keyword+"%",)
-                           )
-            results = cursor.fetchall()
-            result = []
-            for r in results:
-                data = {
-                    "id": r[0],
-                    "name": r[1],
-                    "category": r[2],
-                    "description": r[3],
-                    "address": r[4],
-                    "transport": '公車：' + r[5],
-                    "mrt": r[6],
-                    "latitude": r[7],
-                    "longitude": r[8],
-                    "image": r[9]
-                }
-                # print(data)
-                result.append(data)
-                # if page_num <= len(result):
-                p_data = (
-                    {
-                        "nextPage": None,
-                        "data": result
-                    }
-                )
-            return jsonify(p_data)
-        else:
-            cursor.execute('SELECT id, name, category, description, address, transport, MRT, latitude, longitude, image  FROM t5 where name like %s LIMIT 12 OFFSET %s', ("%"+keyword+"%", offset_num,)  # "%"+keyword+"%"
-                           )
-            results = cursor.fetchall()
-            result = []
-            for r in results:
-                data = {
-                    "id": r[0],
-                    "name": r[1],
-                    "category": r[2],
-                    "description": r[3],
-                    "address": r[4],
-                    "transport": '公車：' + r[5],
-                    "mrt": r[6],
-                    "latitude": r[7],
-                    "longitude": r[8],
-                    "image": r[9]
-                }
-                # print(data)
-                result.append(data)
-                # if page_num <= len(result):
-                p_data = (
-                    {
-                        "nextPage": None,
-                        "data": result
-                    }
-                )
-            return jsonify(p_data)
+        return jsonify(p_data)
 
     except:
         err500 = {
