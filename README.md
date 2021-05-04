@@ -63,6 +63,12 @@ git commit -m ""
 git push [repository url] [branch name]
 ```
 
+● 第 n 次 專案同步到 EC2
+
+```
+git pull [website] [branch name]
+```
+
 ### Linux
 
 ```
