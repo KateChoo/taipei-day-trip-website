@@ -1,21 +1,28 @@
 {% extends 'layout.html' %}
-{% block taipei_css_link%}
-<link rel="stylesheet" href="static/stylesheets/taipei/taipei.css">
+{% block tpe_home_css%}
+    <link rel="stylesheet" href="/static/stylesheets/tpe/tpe.css">
+{% endblock %}
+{% block tpe_banner %}
+    <div class="tpe_bg"> 
+        <div class="tpe_banner">
+            <div class="tpe_wrap">
+                <h1>輕鬆享受台北一日悠閒</h1>
+                <p>探索每個角落，體驗城市的深度旅遊行程</p>
+                <!-- <form action="/api/attractions" class="tpe_search" method="get"> -->
+                <div class="tpe_search">
+                    <input class="tpe_input" type="search" name="page" placeholder="輸入景點名稱查詢">
+                    <button class="tpe_btn" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+                <!-- </form> -->
+            </div>
+            <img class="banner_img" src="../static/img/banner.png" alt="">
+        </div>
+    </div>
+{% endblock %}
+{% block tpe_home %}
+    <main id="taipei_fun"></main>
 {% endblock %}
 
-{% block k_links %}
- 
-    {% if g.name == ' ' %}
-    {% block title_taipei %}
-        <h1>{{web_info.taipei_t}}</h1>
-    {% endblock %}
-    {% else %}
-        {% block taipei%}
-            <main id="taipei_fun"></main>
-        {% endblock %}
-        {% block taipei_api_ajax%}
-            <script src="static/js/taipei.js"> </script>
-        {% endblock %}
-    {% endif %}
-
+{% block tpe_home_js %}
+    <script src="static/js/tpe_page2.js"> </script> 
 {% endblock %}
