@@ -1,11 +1,12 @@
 var main_ = document.getElementById("taipei_fun");
 var tpe_input = document.querySelector(".tpe_input")
 var tpe_btn = document.querySelector(".tpe_btn")
-
+var ec2 = 'http://54.249.216.135:3000/'
+var local = 'http://0.0.0.0:3000/'   //3
 
 getPage()
 function getPage(){ //page=nextPage
-    let url= `http://0.0.0.0:3000/api/attractions`;
+    let url= `${ec2}api/attractions`;
     fetchData(url)
         .then(function (data) {
             nextPage = data["nextPage"];
@@ -39,7 +40,7 @@ let scrolling = (f, delay) => {
         if (scrolled > loading) {
             if (nextPage != null) {
                 // getPage() //X
-                let url=`http://0.0.0.0:3000/api/attractions?page=${nextPage}`; //?page=${page}
+                let url=`${ec2}api/attractions?page=${nextPage}`; //?page=${page}
                 fetchData(url)
                     .then(function (data) {
                         nextPage = data["nextPage"];
@@ -69,7 +70,7 @@ function searchKeyword(){
     main_.innerHTML = "";
     keyword = tpe_input.value;
     if (nextPage != null) {
-        let url=`http://0.0.0.0:3000/api/attractions?page=${nextPage}&keyword=${keyword}`; //page=${page}&
+        let url=`${ec2}api/attractions?page=${nextPage}&keyword=${keyword}`; //page=${page}&
         fetchData(url)               
             .then(function (data) {
                 nextPage = data["nextPage"];
