@@ -1,0 +1,9 @@
+@import url("common.css");
+div{
+    padding: .5rem;
+    display: flex;
+}
+a,p{
+    padding: 1rem;
+    display: inline-block;
+}

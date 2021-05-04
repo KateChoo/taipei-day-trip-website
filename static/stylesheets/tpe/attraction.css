@@ -1,0 +1,106 @@
+/*===*===*===*===*===*===*===*===*===
+            .attraction 
+===*===*===*===*===*===*===*===*===*/
+.attraction{
+    width: 90%;
+    margin: 0 auto;
+}
+.attraction h3,
+.attraction p{
+    margin: 2rem auto;
+}
+.attraction p{
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 13px;
+
+    color: #666666;
+    /* margin: 3rem auto; */
+}
+/*===*===*===*===*===*===*===*===*===
+            .carousel 
+===*===*===*===*===*===*===*===*===*/
+.carousel img{
+    height: 100%;
+}
+/*===*===*===*===*===*===*===*===*===
+            .purchase 
+===*===*===*===*===*===*===*===*===*/
+.purchase{
+    margin: 0 0 0 1rem;
+}
+.purchase h3{
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+
+    color: #666666;
+}
+.purchase h4{
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 13px;
+    
+    color: #666666;
+}
+.purchase p{
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 13px;
+    
+    color: #666666;
+}
+.purchase_action{
+    background: #E8E8E8;
+    border-radius: 5px;
+    padding: 2rem 1rem;
+}
+.purchase_action >div{
+    display: flex;
+    flex-direction: row;
+}
+.purchase_action h4,
+.purchase_action p,
+.purchase_action input{
+    line-height: 2rem;
+}
+/*===*===*===*===*===*===*===*===*===
+            .intro
+===*===*===*===*===*===*===*===*===*/
+.intro p{
+    font-family: Noto Sans TC;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+}
+/*===*===*===*===*===*===*===*===*===
+            layout
+===*===*===*===*===*===*===*===*===*/
+@media only screen and (min-width: 1200px) {
+    .attraction {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+    .carousel{
+        grid-column: 1/2;
+        grid-row: 1/2;
+    }
+    .purchase{
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
+    .intro{
+        grid-column: 1/3;
+        grid-row: 2/3;
+    }
+}
