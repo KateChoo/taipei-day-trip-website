@@ -4,6 +4,7 @@
 .attraction {
   width: 90%;
   margin: 0 auto;
+  padding: 7rem 3rem;
 }
 .attraction h3,
 .attraction p {
@@ -210,7 +211,7 @@ input[type="radio"]:after {
   .attraction {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr); /*auto*/
+    grid-template-rows: auto;
   }
   .carousel {
     grid-column: 1/2;
