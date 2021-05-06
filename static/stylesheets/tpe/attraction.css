@@ -1,215 +1,230 @@
 /*===*===*===*===*===*===*===*===*===
             .attraction 
 ===*===*===*===*===*===*===*===*===*/
-.attraction{
-    width: 90%;
-    margin: 0 auto;
+.attraction {
+  width: 90%;
+  margin: 0 auto;
 }
 .attraction h3,
-.attraction p{
-    margin: 2rem auto;
+.attraction p {
+  margin: 2rem auto;
 }
-.attraction p{
-    font-family: Noto Sans TC;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 13px;
+.attraction p {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 13px;
 
-    color: #666666;
-    /* margin: 3rem auto; */
+  color: #666666;
+  /* margin: 3rem auto; */
 }
 /*===*===*===*===*===*===*===*===*===
             .carousel 
 ===*===*===*===*===*===*===*===*===*/
-.carousel img{
-    height: 100%;
-}
 .carousel {
-    max-width: 600px;
-    position: relative;
-    justify-self: center;
-    align-self: center;
-    /* margin-top: 3rem; */
+  max-width: 600px;
+  position: relative;
+  justify-self: center;
+  align-self: center;
 }
 .carousel .carousel-item,
 .carousel .carousel-item-hidden {
-    display: none;
+  display: none;
 }
 
 .carousel .carousel-item-visible {
-    display: block;
-    animation: fadeVisibility 0.5s;
+  display: block;
+  animation: fadeVisibility 0.5s;
 }
 
 .carousel .carousel-item img {
-    width: 100%;
-    max-width: 600px;
-    height: 450px;
+  width: 100%;
+  max-width: 600px;
+  height: 450px;
+  border-radius: 5px;
 }
 
 .carousel .carousel-actions {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .carousel .carousel-actions button {
-    border-radius: 50px;
-    background-color: white;
-    border: 0;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
+  border-radius: 50px;
+  background-color: white;
+  border: 0;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
 }
 
 .carousel .carousel-actions button#carousel-button-prev {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .carousel .carousel-actions button#carousel-button-next {
-    margin-right: 20px;   
+  margin-right: 20px;
 }
 
 @keyframes fadeVisibility {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /*===*===*===*===*===*===*===*===*===
             .purchase 
 ===*===*===*===*===*===*===*===*===*/
-.purchase{
-    margin: 0 0 0 1rem;
-    display: grid;
-    grid-template-rows: .5fr, 1fr;
-    justify-self: stretch;
-    align-self: center;
+.purchase {
+  margin: 0 0 0 1rem;
+  display: grid;
+  grid-template-rows: 0.5fr, 1fr;
+  justify-self: stretch;
+  align-self: center;
 }
-.purchase_title{
-    grid-row: 1/2;
+.purchase_title {
+  grid-row: 1/2;
 }
-.purchase_action{
-    grid-row: 2/3;
+.purchase_action {
+  grid-row: 2/3;
 }
-.purchase h3{
-    font-family: Noto Sans TC;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 24px;
+.purchase h3 {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 24px;
 
-    color: #666666;
+  color: #666666;
 }
-.purchase h4{
-    font-family: Noto Sans TC;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 1rem;
-    line-height: 1rem;
-    
-    color: #666666;
+.purchase h4 {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1rem;
+
+  color: #666666;
 }
-.purchase p{
-    font-family: Noto Sans TC;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 13px;
-    
-    color: #666666;
+.purchase p {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 13px;
+
+  color: #666666;
 }
-.purchase_action{
-    background: #E8E8E8;
-    border-radius: 5px;
-    padding: 1rem 1rem;
+.purchase_action {
+  background: #e8e8e8;
+  border-radius: 5px;
+  padding: 1rem 1rem;
 }
-.purchase_action >div{
-    display: flex;
-    flex-direction: row;
+.purchase_action > div {
+  display: flex;
+  flex-direction: row;
 }
 .purchase_action h4,
 .purchase_action p,
-.purchase_action input{
-    line-height: 2rem;
+.purchase_action input {
+  line-height: 2rem;
 }
-.purchase .date{
-    line-height: 1rem;
-    margin: 0.5rem 1rem 1rem 1rem;
+.purchase .date {
+  line-height: 1rem;
+  margin: 0.5rem 1rem 1rem 1rem;
 }
-/* #am{
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-} */
+.purchase label {
+  margin: 0 1rem;
+}
+input[type="radio"]:checked:after {
+  width: 22px;
+  height: 22px;
+  border-radius: 18px;
+  background-color: #448899;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+input[type="radio"]:after {
+  width: 22px;
+  height: 22px;
+  position: relative;
+  top: -5px;
+  left: -5px;
+  border-radius: 22px;
+  background-color: white;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
 
 /*===*===*===*===*===*===*===*===*===
             .intro
 ===*===*===*===*===*===*===*===*===*/
-.intro{
-    padding: 2rem 1rem;
+.intro {
+  padding: 2rem 1rem;
 }
-.intro p{
-    font-family: Noto Sans TC;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 2rem;
+.intro p {
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 2rem;
 }
 /*===*===*===*===*===*===*===*===*===
             layout > 1200
 ===*===*===*===*===*===*===*===*===*/
 @media only screen and (min-width: 850px) {
-    .attraction {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-    }
-    .carousel{
-        grid-column: 1/2;
-        grid-row: 1/2;
-    }
-    .purchase{
-        grid-column: 2/3;
-        grid-row: 1/2;
-    }
-    .intro{
-        grid-column: 1/3;
-        grid-row: 2/3;
-    }
+  .attraction {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  .carousel {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+  .purchase {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .intro {
+    grid-column: 1/3;
+    grid-row: 2/3;
+  }
 }
 /*===*===*===*===*===*===*===*===*===
                   直  < 1200
 ===*===*===*===*===*===*===*===*===*/
-@media only screen and (max-width: 850px){
-    .attraction {
-        max-width: 630px;
-        display: flex;
-        /* flex-direction: column; */
-        display: grid;
-        grid-template-rows: 1fr;
-        justify-self: center;
-        align-self: center;
-    }
-    .carousel{
-        order: 1;
-    }
-    .purchase{
-        order: 2;
-        
-    }
-    .intro{
-        order: 3;
-    }
+@media only screen and (max-width: 850px) {
+  .attraction {
+    max-width: 630px;
+    display: flex;
+    /* flex-direction: column; */
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-self: center;
+    align-self: center;
+  }
+  .carousel {
+    order: 1;
+  }
+  .purchase {
+    order: 2;
+  }
+  .intro {
+    order: 3;
+  }
 }
