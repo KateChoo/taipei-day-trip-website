@@ -68,7 +68,7 @@ img {
 }
 .tpe_wrap .tpe_input {
   display: inline;
-  width: 300px;
+  width: 420px;
   height: 46px;
   font-weight: bold;
   padding: 10px;
@@ -120,35 +120,32 @@ main li a {
 #taipei_fun ul li div {
   margin: 5px auto;
 }
-/* #taipei_fun ul li div span{
-  margin: 5px auto;
-} */
 
 /*===*===*===*===*===*===*===*===*===
               banner
 ===*===*===*===*===*===*===*===*===*/
 @media only screen and (min-width: 1200px) {
   .tpe_banner .banner_img {
-    width: 60%;
+    width: 50%;
     /* height: 85%; */
   }
 }
-@media only screen and (min-width: 900px) and (max-width: 1200px) {
+@media only screen and (min-width: 950px) and (max-width: 1200px) {
   .tpe_banner .banner_img {
-    width: 65%;
+    /* width: 65%; */
     height: 80%;
   }
 }
-@media only screen and (min-width: 600px) and (max-width: 900px) {
+@media only screen and (min-width: 600px) and (max-width: 950px) {
   .tpe_banner .banner_img {
-    width: 75%;
+    width: 65%;
     height: 75%;
   }
 }
 @media only screen and (max-width: 600px) {
   .tpe_banner .banner_img {
-    width: 85%;
-    height: 65%;
+    width: 75%;
+    height: 45%;
   }
 }
 
@@ -172,7 +169,7 @@ main li a {
 /*===*===*===*===*===*===*===*===*===
             600~1200 
 ===*===*===*===*===*===*===*===*===*/
-@media only screen and (min-width: 600px) and (max-width: 1200px) {
+@media only screen and (min-width: 700px) and (max-width: 1200px) {
   main {
     max-width: 1200px;
     margin: 0 auto;
@@ -196,7 +193,7 @@ main li a {
 /*===*===*===*===*===*===*===*===*===
                   600 
 ===*===*===*===*===*===*===*===*===*/
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
   main {
     max-width: 600px;
   }

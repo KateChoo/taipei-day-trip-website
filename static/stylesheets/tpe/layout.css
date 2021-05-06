@@ -23,13 +23,12 @@ img {
 header nav {
   display: flex;
   justify-content: space-between;
-  /* margin: 20px 5rem; */
   width: 100%;
   position: fixed;
   background-color: white;
   z-index: 2;
   border-bottom: 1px solid #e8e8e8;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 5.5rem;
 }
 header nav ul {
   display: flex;
@@ -63,9 +62,9 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+  /* position: fixed;
+    width: 100%;
+    bottom: 0; */
 }
 footer a {
   font-family: Noto Sans TC;
