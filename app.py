@@ -18,15 +18,10 @@ app.config["JSON_AS_ASCII"] = False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 
-web_info = {
-    'taipei_t': ''
-}
-# Pages
-
-
+###==================page==================###
 @app.route("/")
 def index():
-    return render_template("index.html", web_info=web_info)
+    return render_template("index.html")
 
 
 @app.route("/attraction/<id>")
@@ -42,6 +37,7 @@ def booking():
 @ app.route("/thankyou")
 def thankyou():
     return render_template("thankyou.html")
+###==================page==================###
 
 
 @ app.route('/api/attraction/<attractionId>')

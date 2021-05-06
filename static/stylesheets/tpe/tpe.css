@@ -113,6 +113,9 @@ main li {
   border-radius: 5px;
   cursor: pointer;
 }
+main li a {
+  color: #757575;
+}
 #taipei_fun ul li div {
   display: flex;
   justify-content: space-between;

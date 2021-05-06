@@ -1,16 +1,18 @@
+
 var main_ = document.getElementById("taipei_fun");
 var tpe_input = document.querySelector(".tpe_input")
 var tpe_btn = document.querySelector(".tpe_btn")
+let keyword = tpe_input.value;
 var ec2 = 'http://54.249.216.135:3000/'
-var local = 'http://0.0.0.0:3000/'   //3
+//var local = 'http://0.0.0.0:3000/'   //4
 
 getPage()
-function getPage(){ //page=nextPage
+function getPage(){ 
     let url= `${ec2}api/attractions`;
     fetchData(url)
         .then(function (data) {
             nextPage = data["nextPage"];
-            console.log(`getPage: ${nextPage}`)
+            //console.log(`getPage: ${nextPage}`)
             //console.log(`getPage len: ${data["data"].length}`) //V
             createElement(data);
         })
@@ -36,17 +38,20 @@ let scrolling = (f, delay) => {
         let screen_h = document.documentElement.clientHeight;
         let total_h = document.documentElement.scrollHeight;
         let loading = (total_h - screen_h) * 0.9
-    
+        //let nextPage = 0;
         if (scrolled > loading) {
-            if (nextPage != null) {
+            if (nextPage != null && !(keyword="")) {
                 // getPage() //X
                 let url=`${ec2}api/attractions?page=${nextPage}`; //?page=${page}
                 fetchData(url)
                     .then(function (data) {
                         nextPage = data["nextPage"];
-                        console.log(`ALL: ${nextPage}`)
+                        //console.log(`ALL: ${nextPage}`)
+                        //console.log(`data: ${data['data']}`) //data: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+                        console.log(`data: ${data['data'][1]['name']}`)//data: 梅庭
                         //console.log(`ALL len: ${data["data"].length}`) //V
                         createElement(data);
+                        //console.log(data.data.length)
                         //getPage()   //ok
                     });
             };
@@ -60,26 +65,32 @@ let scrolling = (f, delay) => {
 =================================== */
 
 ///*
+// if(keyword){
+//     tpe_btn.addEventListener("click", searchKeyword) 
+// }
 tpe_btn.addEventListener("click", searchKeyword)
 //*/
 
 ///*
 function searchKeyword(){
-    nextPage = 0;
-    // var main_ = document.getElementById("taipei_fun");
-    main_.innerHTML = "";
-    keyword = tpe_input.value;
-    if (nextPage != null) {
+    if (!(keyword="")){
+        console.log(`Keyword: ${keyword}`)
+        nextPage = 0;
+        // var main_ = document.getElementById("taipei_fun");
+        main_.innerHTML = "";
+        keyword = tpe_input.value;
+        if (nextPage != null) {
         let url=`${ec2}api/attractions?page=${nextPage}&keyword=${keyword}`; //page=${page}&
         fetchData(url)               
             .then(function (data) {
                 nextPage = data["nextPage"];
-                console.log(`searchKeyword: ${nextPage}`)
+                //console.log(`searchKeyword: ${nextPage}`)
                 //console.log(`searchKeyword len: ${data["data"].length}`)
                 createElement(data)  
                 //getPage(data) //X
             })
         }
+    }
 }
 //*/
 
@@ -88,22 +99,33 @@ function searchKeyword(){
 =================================== */
 function createElement(data){
     const ul_ = document.createElement("ul");
-    console.log(data.data.length)
     main_.appendChild(ul_)
     for(var i = 0; i<data.data.length;i++){
+        //console.log(`createElement nextPage: ${nextPage}`)
+        //console.log(`createElement nextPage: ${i+1} and ${nextPage}`)
+        //console.log(`createElement nextPage: ${(i+1)+(data.data.length)*(nextPage-1)}`)
+     
         let lis_ = document.createElement("li");
+        let a = document.createElement("a");
         let imgs = document.createElement("img");
         let p = document.createElement("p");
         let div = document.createElement("div");
         let s1 = document.createElement("span");
         let s2 = document.createElement("span");
         ul_.appendChild(lis_);
-        lis_.appendChild(imgs);
-        lis_.appendChild(p);
-        lis_.appendChild(div);
+        lis_.appendChild(a);
+        a.appendChild(imgs);
+        a.appendChild(p);
+        a.appendChild(div);
         div.appendChild(s1);
         div.appendChild(s2);
         s2.classList.add("s2");
+        if(nextPage === null){
+            a.setAttribute("href", `${ec2}attraction/${(i+1)+(data.data.length)*29}`)
+        }else if (!(nextPage === null)){
+            a.setAttribute("href", `${ec2}attraction/${(i+1)+(data.data.length)*(nextPage-1)}`)
+        }
+        
         first_photo = data.data[i]['image'].split('[",');
         photo = first_photo[0].split(",")[0].replace("['", '').replace("'", '').replace("]", '');
         imgs.setAttribute("alt", data.data[i]['name']);
@@ -118,7 +140,7 @@ function createElement(data){
 
 function fetchData(url){
     return fetch(url)
-        .then(checkStatus)        
+        .then(checkStatus)       
         .then(res => res.json())
         // .then(res => console.log(res))
         .catch(error => console.log('error', error))
