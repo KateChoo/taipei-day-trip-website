@@ -39,10 +39,10 @@
 }
 
 .carousel .carousel-item img {
-  width: 100%;
-  max-width: 600px;
+  width: 600px;
   height: 450px;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .carousel .carousel-actions {
@@ -65,12 +65,12 @@
   height: 40px;
 }
 
-.carousel .carousel-actions button#carousel-button-prev {
-  margin-left: 20px;
+.carousel .carousel-actions button#carousel_btn_prev {
+  margin-left: 1rem;
 }
 
-.carousel .carousel-actions button#carousel-button-next {
-  margin-right: 20px;
+.carousel .carousel-actions button#carousel_btn_next {
+  margin-right: 1rem;
 }
 
 @keyframes fadeVisibility {
@@ -144,7 +144,7 @@
   margin: 0.5rem 1rem 1rem 1rem;
 }
 .purchase label {
-  margin: 0 1rem;
+  margin: 0.3rem 0 0 0.3rem;
 }
 input[type="radio"]:checked:after {
   width: 22px;
@@ -155,21 +155,41 @@ input[type="radio"]:checked:after {
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
+  margin: 0.2rem 0 0 0.4rem;
 }
+
 input[type="radio"]:after {
   width: 22px;
   height: 22px;
   position: relative;
-  top: -5px;
-  left: -5px;
+  top: -7px;
+  left: -7px;
   border-radius: 22px;
   background-color: white;
   content: "";
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
+  margin: 0.2rem 0 0 0.4rem;
 }
-
+.showPrice span {
+  margin: 0.5rem 0 0 0.5rem;
+}
+.startB {
+  display: flex;
+  height: 36px;
+  width: 154px;
+  background-color: #448899;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: Noto Sans TC;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 19px;
+  line-height: 16px;
+}
 /*===*===*===*===*===*===*===*===*===
             .intro
 ===*===*===*===*===*===*===*===*===*/
