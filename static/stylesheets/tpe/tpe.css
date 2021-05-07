@@ -147,6 +147,9 @@ main li a {
     width: 75%;
     height: 45%;
   }
+  .tpe_wrap .tpe_input {
+    width: 350px;
+  }
 }
 
 /*===*===*===*===*===*===*===*===*===
