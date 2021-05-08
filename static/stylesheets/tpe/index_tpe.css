@@ -1,22 +1,6 @@
 @import url("../reset.css");
 @import url("../common.css");
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-a {
-  text-decoration: none;
-}
-li {
-  list-style: none;
-}
-img {
-  display: block;
-  width: 100%;
-  object-fit: cover;
-}
+@import url("../tpe/layout.css");
 
 /*===*===*===*===*===*===*===*===*===
               all banner
@@ -73,8 +57,6 @@ img {
   font-weight: bold;
   padding: 10px;
   border: 1px solid #ffffff;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
 }
 .tpe_wrap .tpe_btn {
   width: 60px;
@@ -87,7 +69,6 @@ img {
   border-bottom-right-radius: 5px;
   position: absolute;
   bottom: 0;
-  right: 0px;
   cursor: pointer;
 }
 /*===*===*===*===*===*===*===*===*===
@@ -112,50 +93,56 @@ main li {
 main li a {
   color: #757575;
 }
+#taipei_fun ul li p{
+  margin: 1rem;
+}
 #taipei_fun ul li div {
   display: flex;
   justify-content: space-between;
-  margin: 5px auto;
+  margin: 1rem;
 }
-#taipei_fun ul li div {
-  margin: 5px auto;
-}
-
 /*===*===*===*===*===*===*===*===*===
-              banner
+              BANNER 490/700/950
 ===*===*===*===*===*===*===*===*===*/
 @media only screen and (min-width: 1200px) {
   .tpe_banner .banner_img {
-    width: 50%;
+    width: 43%;
     /* height: 85%; */
   }
 }
-@media only screen and (min-width: 950px) and (max-width: 1200px) {
+@media only screen and (min-width: 700px) and (max-width: 950px) {
   .tpe_banner .banner_img {
-    /* width: 65%; */
-    height: 80%;
+    height: 60%;
   }
 }
-@media only screen and (min-width: 600px) and (max-width: 950px) {
+@media only screen and (min-width: 490px) and (max-width: 700px) {
   .tpe_banner .banner_img {
-    width: 65%;
-    height: 75%;
-  }
-}
-@media only screen and (max-width: 600px) {
-  .tpe_banner .banner_img {
-    width: 75%;
     height: 45%;
   }
-  .tpe_wrap .tpe_input {
-    width: 350px;
+  .tpe_wrap {
+    left: 5%;
+  }
+  .tpe_wrap .tpe_input{
+    width: 300px;
+  }
+}
+@media only screen and (max-width: 490px) {
+  .tpe_banner .banner_img {
+    height: 30%;
+    width: 70%;
+  }
+  .tpe_wrap {
+    left: 5%;
+  }
+  .tpe_wrap .tpe_input{
+    width: 200px;
   }
 }
 
 /*===*===*===*===*===*===*===*===*===
-            1200 
+           MAIN 950
 ===*===*===*===*===*===*===*===*===*/
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 950px) {
   main {
     max-width: 1200px;
     margin: 0 auto;
@@ -170,11 +157,12 @@ main li a {
 }
 
 /*===*===*===*===*===*===*===*===*===
-            600~1200 
+          MAIN  600~950 
 ===*===*===*===*===*===*===*===*===*/
-@media only screen and (min-width: 600px) and (max-width: 1200px) {
+@media only screen and (min-width: 600px) and (max-width: 950px) {
+ 
   main {
-    max-width: 1200px;
+    max-width: 950px;
     margin: 0 auto;
   }
   main ul {
@@ -188,13 +176,13 @@ main li a {
   }
   main img {
     /* max-width: 100%; */
-    width: 430px;
+    width: 300px;
     height: 217px;
   }
 }
 
 /*===*===*===*===*===*===*===*===*===
-                  600 
+              MAIN 600 
 ===*===*===*===*===*===*===*===*===*/
 @media only screen and (max-width: 600px) {
   main {
@@ -211,14 +199,18 @@ main li a {
 /*===*===*===*===*===*===*===*===*===
       all footer  layout已經有了,but no use
 ===*===*===*===*===*===*===*===*===*/
-footer {
+/*
+footer{
   background: #757575;
   height: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0; 
 }
-footer a {
+footer a{
   font-family: Noto Sans TC;
   font-style: normal;
   font-weight: bold;
@@ -226,3 +218,6 @@ footer a {
   line-height: 13px;
   color: #fff;
 }
+*/
+
+

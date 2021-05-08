@@ -1,19 +1,17 @@
-
 var main_ = document.getElementById("taipei_fun");
 var tpe_input = document.querySelector(".tpe_input")
 var tpe_btn = document.querySelector(".tpe_btn")
 let keyword = tpe_input.value;
+let nextPage = 0;
 var ec2 = 'http://54.249.216.135:3000/'
-//var local = 'http://0.0.0.0:3000/'   //4
+
 
 getPage()
 function getPage(){ 
-    let url= `${ec2}api/attractions`;
+    let url=`${ec2}api/attractions`  
     fetchData(url)
         .then(function (data) {
             nextPage = data["nextPage"];
-            //console.log(`getPage: ${nextPage}`)
-            //console.log(`getPage len: ${data["data"].length}`) //V
             createElement(data);
         })
 }
@@ -31,68 +29,65 @@ let scrolling = (f, delay) => {
         }, delay);
     };
 };
-///*
-// if(!tpe_input.value){
-    window.addEventListener("scroll", scrolling(e => {
-        let scrolled = window.scrollY;
-        let screen_h = document.documentElement.clientHeight;
-        let total_h = document.documentElement.scrollHeight;
-        let loading = (total_h - screen_h) * 0.9
-        //let nextPage = 0;
-        if (scrolled > loading) {
-            if (nextPage != null && !(keyword="")) {
-                // getPage() //X
-                let url=`${ec2}api/attractions?page=${nextPage}`; //?page=${page}
-                fetchData(url)
-                    .then(function (data) {
-                        nextPage = data["nextPage"];
-                        //console.log(`ALL: ${nextPage}`)
-                        //console.log(`data: ${data['data']}`) //data: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
-                        console.log(`data: ${data['data'][1]['name']}`)//data: 梅庭
-                        //console.log(`ALL len: ${data["data"].length}`) //V
-                        createElement(data);
-                        //console.log(data.data.length)
-                        //getPage()   //ok
-                    });
-            };
-        }
-    }, 500)); 
-// }
-//*/
+
+window.addEventListener("scroll", scrolling(e => {
+    let scrolled = window.scrollY;
+    let screen_h = document.documentElement.clientHeight;
+    let total_h = document.documentElement.scrollHeight;
+    let loading = (total_h - screen_h) * 0.9
+    if (scrolled > loading) {
+        if (nextPage != null) {
+            // if(keyword){
+            //     let url=`${ec2}api/attractions?page=${nextPage}&keyword=${keyword}`;
+            // }else{
+            //     let url=`${ec2}api/attractions?page=${nextPage}`;
+            // }
+            // fetchData(url)   //url is not defined
+            //     .then(function (data) {
+            //         nextPage = data["nextPage"];
+            //         createElement(data);
+            //     });
+            if(keyword){
+                let url=`${ec2}api/attractions?page=${nextPage}&keyword=${keyword}`;
+                fetchData(url)   
+                .then(function (data) {
+                    nextPage = data["nextPage"];
+                    createElement(data);
+                });
+            } else {
+                let url=`${ec2}api/attractions?page=${nextPage}`;
+                fetchData(url)   
+                .then(function (data) {
+                    nextPage = data["nextPage"];
+                    createElement(data);
+                });
+            }
+        };
+    }
+}, 500)); 
 
 /*==================================
     controller - search for keyword
 =================================== */
 
-///*
-// if(keyword){
-//     tpe_btn.addEventListener("click", searchKeyword) 
-// }
 tpe_btn.addEventListener("click", searchKeyword)
-//*/
 
-///*
 function searchKeyword(){
-    if (!(keyword="")){
-        console.log(`Keyword: ${keyword}`)
-        nextPage = 0;
-        // var main_ = document.getElementById("taipei_fun");
-        main_.innerHTML = "";
-        keyword = tpe_input.value;
-        if (nextPage != null) {
-        let url=`${ec2}api/attractions?page=${nextPage}&keyword=${keyword}`; //page=${page}&
-        fetchData(url)               
-            .then(function (data) {
-                nextPage = data["nextPage"];
-                //console.log(`searchKeyword: ${nextPage}`)
-                //console.log(`searchKeyword len: ${data["data"].length}`)
-                createElement(data)  
-                //getPage(data) //X
-            })
-        }
+    nextPage = 0;
+    main_.innerHTML = "";
+    keyword = tpe_input.value;
+    if (nextPage != null) {
+    let url=`${ec2}api/attractions?page=${nextPage}&keyword=${keyword}`; //page=${page}&
+    fetchData(url)               
+        .then(function (data) {
+            nextPage = data["nextPage"];
+            //console.log(nextPage)
+            createElement(data)  
+            //getPage(data) //X
+        })
     }
 }
-//*/
+
 
 /*==================================
             view
@@ -140,7 +135,7 @@ function createElement(data){
 
 function fetchData(url){
     return fetch(url)
-        .then(checkStatus)       
+        .then(checkStatus)        //1.checkStatus
         .then(res => res.json())
         // .then(res => console.log(res))
         .catch(error => console.log('error', error))

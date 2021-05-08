@@ -1,21 +1,8 @@
-//var ec2 = 'http://54.249.216.135:3000/'
-//var local = 'http://0.0.0.0:3000/api/attraction/3'  
-//var apiurl = local.split('attraction', 'api/attraction') 
-
-// request(fetch): http://0.0.0.0:3000/api/attraction/1
-// show: http://0.0.0.0:3000/attraction/1
-
 const attraction = document.querySelector('.attraction');
 const sec_purchase = document.querySelector('.purchase');
 
 getPage()
-function getPage(){ //page=nextPage
-    //let url= `${local}`; //假設local = 'http://0.0.0.0:3000/api/attraction/1'
-    //剛剛a tag點進去是'http://0.0.0.0:3000/attraction/1'的話
-    //但需要抓取的是: local = 'http://0.0.0.0:3000/api/attraction/1' 
-    //這個id 1 
-    //let url = local.split('attraction', 'api/attraction') 
-    //如果嘗試改網址就會報錯 data就找不到了
+function getPage(){ 
     let url = "/api/" + location.pathname;
     console.log(`getPage: ${url}`)
     fetchData(url)
